@@ -1,0 +1,8 @@
+body {
+	width: 150px;
+	height: 350px;
+	margin: 15px;
+	background-image: url("lotus.jpg");
+	background-size: 150px, 350px;
+    color: #fffff0;
+}

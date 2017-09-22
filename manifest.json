@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+
+	"name": "Lotus",
+	"description": "This extension is a breath timer based on the Pomodoro Technique",
+	"version": "1.0",
+
+	"browser_action": {
+		"default_icon": "yoga_meditation.png",
+		"default_title": "Lotus: Your Meditation Timer"
+	},
+	"background": {
+		"scripts": ["pomodoroState.js", "breakState.js", "moment.js", "background.js"],
+		"persistent": false
+	},
+	"permissions": [
+		"notifications"
+	]
+}
