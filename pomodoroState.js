@@ -2,7 +2,7 @@ function PomodoroState() {
 	this.length = function() {
 		return localStorage["lotus-selection"] || 10;
 	}
-	this.delay = this.length;
+	this.delay = 10;
 	this.html = "timer.html";
 	this.opt = {
 		type: "basic",

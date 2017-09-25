@@ -1,1 +1,1 @@
-Lotus is slow breath timer extension developed to use chrome extensions give user a quick office meditation session.
+Tomato is a Pomodoro timer extension developed to introduce chrome extensions during a GT WebDev presentation.

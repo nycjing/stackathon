@@ -7,6 +7,7 @@ function init() {
 	startTimer();
 }
 
+
 /**
  * Sends a message to background page to start the timer.
  */
@@ -18,6 +19,7 @@ function startTimer() {
 	});
 }
 
+var counter = localStorage["round-selection"]*localStorage["lotus-selection"]+0.5;
 /**
  * Adds listeners so it knows how to handle the messages from the background page.
  */
@@ -25,10 +27,21 @@ function addMessageListeners() {
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		switch(request.command) {
 			case "updateTime":
-				document.getElementById("current-time").innerText = request.time;
-				break;
+                counter--;
+                console.log(counter)
+                if(counter > 0) {
+                    document.getElementById("current-time").innerText = request.time;
+                    break;
+				}
+				else{
+                    chrome.runtime.sendMessage({
+                        "command": "endTimer"
+                    });
+                    document.location = chrome.runtime.getURL("popup.html");
+                    chrome.browserAction.setBadgeText({"text" : ""});
+				}
 			case "timerEnded":
-				console.log("Timer ended.");
+				console.log("Timer ended.",counter);
 				break;
 		}
 	});
@@ -43,7 +56,7 @@ function addOnClick() {
 			"command": "endTimer"
 		});
 		document.location = chrome.runtime.getURL("popup.html");
-		chrome.browserAction.setBadgeText({"text" : "DONE"});
+		chrome.browserAction.setBadgeText({"text" : ""});
 
 	}
 }

@@ -8,7 +8,8 @@ var timerStates = {
     stateKey = "off",
     currentState = timerStates[stateKey],
     timer,
-    timeout;
+    timeout,
+    counter;
 
 /**
  * Executed Initially
@@ -25,6 +26,7 @@ chrome.runtime.onMessage.addListener(
 		// Only start timer if timer was initially off. No delay.
 		if (request.command === "startTimer" && stateKey === "off") {
 			changeToNextState(false);
+            counter = localStorage["round-selection"];
 			sendResponse({message: "Timer started."});
 		}
 		// Only clear timers if timer is not off.
@@ -43,13 +45,17 @@ chrome.runtime.onMessage.addListener(
 /**
  * Helper Functions
  */
-
+// var counter = localStorage["round-selection"];
+counter++;
 /**
  * Function to start a timer and send updates to timer.html every second or so.
  */
 function startTimer() {
-    var audio = new Audio('inhale.mp3');
-    console.log(audio);
+	counter--;
+	console.log(counter);
+	if(counter===0) var audio = new Audio('meditation_over.mp3');
+	else
+    		var audio = new Audio('inhale.mp3');
     audio.play();
 	var start = moment();
 	timer = setInterval(function() {
@@ -131,6 +137,7 @@ function changeState(nextStateKey, isDelayed) {
 		if (isDelayed) {
 			timeout	= setTimeout(startTimer, currentState.delay*1000);
 		}
-		else startTimer();
+		else
+			startTimer();
 	}
 }
